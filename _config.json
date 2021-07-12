@@ -1,0 +1,6 @@
+{
+    "ganache-cli": "",
+    "node": "",
+
+    "note": "REMOVE ME ~~~ rename file to 'config.json' and enter path to ganache-cli and node"
+}
