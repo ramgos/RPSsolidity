@@ -10,7 +10,6 @@ function App() {
     <web3Context.Provider value={w3}> 
       <div>
         <CreateGame />
-        Hello
       </div>
     </web3Context.Provider>
   );

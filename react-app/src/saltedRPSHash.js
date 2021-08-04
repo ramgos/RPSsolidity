@@ -1,10 +1,10 @@
 const Web3 = require('web3');
 
-const generateSalt = () => {
+export const generateSalt = () => {
     return Web3.utils.randomHex(32);
 }
 
-const saltedHash = (choice, salt) => {
+export const saltedHash = (choice, salt) => {
     return Web3.utils.soliditySha3(choice, salt);
 }
 
