@@ -1,22 +1,33 @@
 import React, {useContext, useState} from 'react';
+import { Utils } from 'web3-utils';
 import { web3Context } from './App';
 import { generateSalt, saltedHash} from '../saltedRPSHash';
 
+import ChoiceSelection from './CreateGameComponents/ChoiceSelection';
+import CreateGameField from './CreateGameComponents/CreateGameField';
+import NewGameInfo from './CreateGameComponents/NewGameInfo';
+
 // enum
-const Choice = {
+export const Choice = {
     "rock": 0,
     "paper": 1,
     "scissors": 2
 }
 
 const CreateGame = () => {
+    console.log("rendered");
     const w3 = useContext(web3Context);
 
     const [state, setState] = useState(() => {
         return {
             choice: -1,
             respondent: "enter respondent address",
-            duration: "enter block duration"
+            duration: "enter block duration",
+            salt: "",
+            gameID: "",
+            saltVisible: false,
+            gameCreated: false,
+            errorMessage: ""
         }
     })
 
@@ -31,7 +42,7 @@ const CreateGame = () => {
                     - saltedChoice: ${saltedChoice}
                     - choice: ${state.choice}
                     - respondent: ${state.respondent}
-                    - blockduration: ${state.duration}
+                    - duration: ${state.duration}
             `
         )
     }
@@ -63,42 +74,37 @@ const CreateGame = () => {
         })
     }
 
-    // TODO: refactor to smaller components
     return (
         <div>
+            <p>
+                {state.errorMessage}
+            </p>
             <form>
-                <div>
-                    <label>choice:</label><br />
-                    <div onChange={(event) => onChoiceChange(event.target.value)}>
-                        rock: <input 
-                            type="radio"
-                            value={Choice.rock}
-                            name="choice"/><br />
-                        paper: <input 
-                            type="radio"
-                            value={Choice.paper}
-                            name="choice"/><br />
-                        paper: <input 
-                            type="radio"
-                            value={Choice.scissors}
-                            name="choice"/><br />
-                    </div>
-                </div>
-                <label>respondent:</label><br />
-                <input 
-                    type="text" 
-                    value={state.respondent} 
-                    onChange={(event) => onRespondentInputValueChange(event.target.value)}/><br />
-                
-                <label>duration (in blocks):</label><br />
-                <input 
-                    type="text" 
+                <ChoiceSelection onChoiceChange={onChoiceChange}/>
+                <CreateGameField 
+                    displayText="respondent:" 
+                    value={state.respondent}
+                    onChange={onRespondentInputValueChange}/>
+                <CreateGameField 
+                    displayText="duration (in blocks)"
                     value={state.duration}
-                    onChange={(event) => onDurationInputValueChange(event.target.value)} /><br />
-                
-                <input type="button" value="create game" onClick={() => createGame()}>
-                </input>
+                    onChange={onDurationInputValueChange}/>
+                <input type="button" value="create game" onClick={() => createGame()} />
             </form>
+            <NewGameInfo 
+                salt={state.salt}
+                saltVisible={state.saltVisible}
+                onVisibleChange={() => {
+                    setState((prevState) => {
+                        console.log(`saltVisible: ${state.saltVisible}`)
+                        return {
+                            ...prevState,
+                            saltVisible: !prevState.saltVisible
+                        }
+                    });
+                }}
+                gameId={state.gameId}
+                gameCreated={state.gameCreated}/>
         </div>
     );
 }

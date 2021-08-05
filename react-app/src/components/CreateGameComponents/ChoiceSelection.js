@@ -1,0 +1,26 @@
+import React from 'react';
+import { Choice } from '../CreateGame';
+
+const ChoiceSelection = ({onChoiceChange}) => {
+    return (
+        <div>
+            <label>choice:</label><br />
+            <div onChange={(event) => onChoiceChange(event.target.value)}>
+                rock: <input 
+                    type="radio"
+                    value={Choice.rock}
+                    name="choice"/><br />
+                paper: <input 
+                    type="radio"
+                    value={Choice.paper}
+                    name="choice"/><br />
+                paper: <input 
+                    type="radio"
+                    value={Choice.scissors}
+                    name="choice"/><br />
+            </div>
+        </div>
+    );
+}
+
+export default ChoiceSelection;
