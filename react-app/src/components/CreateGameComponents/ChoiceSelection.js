@@ -14,7 +14,7 @@ const ChoiceSelection = ({onChoiceChange}) => {
                     type="radio"
                     value={Choice.paper}
                     name="choice"/><br />
-                paper: <input 
+                scissors: <input 
                     type="radio"
                     value={Choice.scissors}
                     name="choice"/><br />

@@ -8,7 +8,7 @@ const NewGameInfo = ({salt, saltVisible, onVisibleChange, gameId, gameCreated}) 
         return (
             <div>
                 <p>
-                    Your salt should remain secret, 
+                    Your salt should remain secret,
                     otherwise your opponent could rig the game
                 </p>
                 <label>salt: {salt}</label><br />
@@ -21,10 +21,10 @@ const NewGameInfo = ({salt, saltVisible, onVisibleChange, gameId, gameCreated}) 
         return (
             <div>
                 <p>
-                    Your salt should remain secret, 
+                    Your salt should remain secret,
                     otherwise your opponent could rig the game
                 </p>
-                <label>salt: PLACEHOLDER</label><br />
+                <label>salt: HIDDEN</label><br />
                 <label>gameId: {gameId}</label><br />
                 <input type="button" value="reveal salt" onClick={onVisibleChange} />
             </div>
