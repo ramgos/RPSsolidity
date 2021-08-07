@@ -116,7 +116,7 @@ const CreateGame = () => {
         return false;
     }
 
-    const createGame = () => {
+    const createGame = async () => {
         const inputIsValid = validateInput();
         if (!inputIsValid) {
             return;
@@ -124,6 +124,61 @@ const CreateGame = () => {
 
         // ensure metamask is connected
         let userAccount;
+
+        try {
+            const userAddresses = await w3.eth.requestAccounts();
+            userAccount = userAddresses[0];
+
+            // generate salt
+            const salt = generateSalt();
+            const saltedChoice = saltedHash(state.choice, salt);
+
+            // contract interface
+            const rpsContract = new w3.eth.Contract(rpsABI, envData.contractAddress);
+            const parsedValue = Number.parseInt(state.value) * Math.pow(10, 9).toString();
+
+            // call create game function in contract
+            const tx_data = await rpsContract
+                .methods
+                .challenge(saltedChoice, state.respondent, state.duration)
+                .send({
+                    from: userAccount,
+                    value: parsedValue
+                })
+        
+            // handle after game created
+            console.log(tx_data);
+            const gameId = tx_data.events.GameCreated.returnValues.gameId;
+            
+            // implement all logic of handling game creation in 'onCreateGame'
+            onCreateGame({
+                salt: salt,
+                gameId: gameId
+            });
+        }
+        catch (error) {
+            console.log(error);
+            switch (error.code) {
+                case 4001:
+                    onErrorMessageChange("please confirm metamask to use this dapp");
+                    break;
+                case -32603:
+                    onErrorMessageChange(
+                        "an RPC error occured. did you try to challenge yourself or the burn address?"
+                    )
+                    break;
+                default:
+                    onErrorMessageChange(
+                        "Something went wrong, please try again later." + 
+                        "none of your funds have been lost, but you may have lost gas money"
+                    )
+                    break
+            }
+        }
+
+        /*
+        using then, catch blocks
+
         w3.eth.requestAccounts()
             .then((userAddresses) => {
                 // generate salt
@@ -155,6 +210,7 @@ const CreateGame = () => {
                         });
                     });
             });
+            */
     }
     
     return (
