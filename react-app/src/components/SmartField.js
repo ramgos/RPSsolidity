@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CreateGameField = ({displayText, value, onChange, type}) => {
+const SmartField = ({displayText, value, onChange, type}) => {
     return (
         <div>
             <label>{displayText}</label><br />
@@ -12,4 +12,4 @@ const CreateGameField = ({displayText, value, onChange, type}) => {
     );
 }
 
-export default CreateGameField;
+export default SmartField;

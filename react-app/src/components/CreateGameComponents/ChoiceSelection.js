@@ -1,5 +1,5 @@
 import React from 'react';
-import { Choice } from '../CreateGame';
+import { Choice } from '../App';
 
 const ChoiceSelection = ({onChoiceChange}) => {
     return (

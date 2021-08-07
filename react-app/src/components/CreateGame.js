@@ -3,19 +3,13 @@ import { web3Context } from './App';
 import { generateSalt, saltedHash} from '../saltedRPSHash';
 
 import ChoiceSelection from './CreateGameComponents/ChoiceSelection';
-import CreateGameField from './CreateGameComponents/CreateGameField';
+import SmartField from './SmartField';
 import NewGameInfo from './CreateGameComponents/NewGameInfo';
 
 import envData from '../env.json';
 import rpsABI from '../rpsABI.json';
-const Web3 = require('web3');
 
-// enum
-export const Choice = {
-    "rock": 0,
-    "paper": 1,
-    "scissors": 2
-}
+const Web3 = require('web3');
 
 const CreateGame = () => {
     const w3 = useContext(web3Context);
@@ -33,6 +27,8 @@ const CreateGame = () => {
             errorMessage: ""
         }
     });
+
+    // update functions of state
 
     const onRespondentInputValueChange = (newValue) => {
         setState((prevState) => {
@@ -79,6 +75,8 @@ const CreateGame = () => {
         })
     }
 
+    // handle creation of a game
+
     const onCreateGame = ({salt, gameId}) => {
         setState((prevState) => {
             return {
@@ -89,6 +87,8 @@ const CreateGame = () => {
             }
         })
     }
+
+    // check all user input is valid
 
     const validateInput = () => {
         if (!Web3.utils.isAddress(state.respondent)) {
@@ -116,18 +116,25 @@ const CreateGame = () => {
         return false;
     }
 
+    // metamask pop up asking user if they want to create a game
+
     const createGame = async () => {
         const inputIsValid = validateInput();
         if (!inputIsValid) {
             return;
         }
 
-        // ensure metamask is connected
         let userAccount;
 
         try {
+            // ensure metamask is connected
             const userAddresses = await w3.eth.requestAccounts();
             userAccount = userAddresses[0];
+
+            if (state.respondent === userAccount || parseInt(state.respondent, 16) === 0) {
+                onErrorMessageChange("challenging yourself or the burn address isn't allowed");
+                return;
+            }
 
             // generate salt
             const salt = generateSalt();
@@ -175,42 +182,6 @@ const CreateGame = () => {
                     break
             }
         }
-
-        /*
-        using then, catch blocks
-
-        w3.eth.requestAccounts()
-            .then((userAddresses) => {
-                // generate salt
-                let salt = generateSalt();
-                let saltedChoice = saltedHash(state.choice, salt);
-
-                userAccount = userAddresses[0];
-
-                // create contract interface
-                const rpsContract = new w3.eth.Contract(rpsABI, envData.contractAddress);
-                const parsedValue = Number.parseInt(state.value) * Math.pow(10, 9).toString();  //gwei is trillion wei
-
-                // call create game function in contract
-                rpsContract.methods
-                    .challenge(saltedChoice, state.respondent, state.duration)
-                    .send({
-                        from: userAccount,
-                        value: parsedValue
-                    })
-                    .then((tx_data) => {
-                        // handle after game created
-                        console.log(tx_data);
-                        const gameId = tx_data.events.GameCreated.returnValues.gameId;
-
-                        // implement all logic of handling game creation in 'onCreateGame'
-                        onCreateGame({
-                            salt: salt,
-                            gameId: gameId
-                        });
-                    });
-            });
-            */
     }
     
     return (
@@ -220,17 +191,17 @@ const CreateGame = () => {
             </p>
             <form>
                 <ChoiceSelection onChoiceChange={onChoiceChange}/>
-                <CreateGameField 
+                <SmartField 
                     type="text"
                     displayText="respondent:" 
                     value={state.respondent}
                     onChange={onRespondentInputValueChange}/>
-                <CreateGameField 
+                <SmartField 
                     type="number"
                     displayText="duration (in blocks)"
                     value={state.duration}
                     onChange={onDurationInputValueChange}/>
-                <CreateGameField 
+                <SmartField 
                     type="number"
                     displayText="value (in gwei)"
                     value={state.value}
