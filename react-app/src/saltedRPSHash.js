@@ -12,7 +12,8 @@ export const saltedHash = (choice, salt) => {
 
 // test functionallity against contract
 
-let salt = generateSalt()
+let salt = generateSalt();
 console.log(`salt: ${salt}`);
 console.log(`salted hash: ${saltedHash(0, salt)}`);
+
 */

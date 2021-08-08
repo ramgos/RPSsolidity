@@ -1,13 +1,9 @@
-import React, {useState, useContext} from 'react';
-import { web3Context } from './App';
+import React, { useState } from 'react';
 import SmartField from './SmartField';
 
-import envData from '../env.json';
-import rpsABI from '../rpsABI.json';
+import { parsedGameData } from './App';
 
 const GameInfo = () => {
-    const w3 = useContext(web3Context);
-
     const [state, setState] = useState(()=>{
         return {
             gameId: "",
@@ -26,46 +22,11 @@ const GameInfo = () => {
         })
     }
 
-    // return game data as an object
-
-    const parsedGameData = async () => {
-        const rpsContract = new w3.eth.Contract(rpsABI, envData.contractAddress);
-        try {
-            let response = {};
-
-            const gameData1 = await rpsContract
-                .methods
-                .getGameData1(state.gameId)
-                .call();
-
-            const gameData2 = await rpsContract
-                .methods
-                .getGameData2(state.gameId)
-                .call();
-
-            for (const attr in gameData1) {
-                if (isNaN(attr)) {
-                    response[attr] = gameData1[attr];
-                }
-            }
-            for (const attr in gameData2) {
-                if (isNaN(attr)) {
-                    response[attr] = gameData2[attr];
-                }
-            }
-
-            return response;
-        }
-        catch (error) {
-            console.log(error);
-        }
-    }
-
     // get parsed data and update state
 
     const parseGameData = async () => {
         try {
-            const gameData = await parsedGameData()
+            const gameData = await parsedGameData(state.gameId)
             setState((prevState) => {
                 return {
                     ...prevState,
