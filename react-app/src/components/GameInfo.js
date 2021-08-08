@@ -72,20 +72,22 @@ const GameInfo = () => {
     }
 
     return (
-        <div className="game-info">
-            <p>
-                enter a gameId to view data about that game
-            </p>
-            <SmartField 
-                type="text"
-                displayText="gameId"
-                value={state.gameId}
-                onChange={onGameIdChange}
-                />
-            <input type="button" value="view data" onClick={parseGameData} />
-            <ul>
-                {showGameData()}
-            </ul>
+        <div className="bottom-item game-info">
+            <div className="inside">
+                <p>
+                    enter a gameId to view data about that game
+                </p>
+                <SmartField 
+                    type="text"
+                    displayText="gameId"
+                    value={state.gameId}
+                    onChange={onGameIdChange}
+                    />
+                <input type="button" value="view data" onClick={parseGameData} />
+                <ul>
+                    {showGameData()}
+                </ul>
+            </div>
         </div>
     );
 }

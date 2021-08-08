@@ -117,19 +117,21 @@ const UserMenu = () => {
     }
 
     return (
-        <div className="user-menu">
-            <p>
-                {state.errorMessage}
-            </p>
-            <div>
-                <SmartField 
-                    type="text"
-                    displayText="gameId"
-                    value={state.gameId}
-                    onChange={onGameIdChange}/>
-                <input type="button" value="reveal user menu" onClick={revealUserMenu} />
+        <div className="bottom-item user-menu">
+            <div className="inside">
+                <p>
+                    {state.errorMessage}
+                </p>
+                <div>
+                    <SmartField 
+                        type="text"
+                        displayText="gameId"
+                        value={state.gameId}
+                        onChange={onGameIdChange}/>
+                    <input type="button" value="reveal user menu" onClick={revealUserMenu} />
+                </div>
+                {appropriateMenu()}
             </div>
-            {appropriateMenu()}
         </div>
     );
 }

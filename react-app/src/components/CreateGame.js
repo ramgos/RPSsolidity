@@ -185,42 +185,44 @@ const CreateGame = () => {
     }
     
     return (
-        <div className="create-game">
-            <p>
-                {state.errorMessage}
-            </p>
-            <form>
-                <ChoiceSelection onChoiceChange={onChoiceChange}/>
-                <SmartField 
-                    type="text"
-                    displayText="respondent:" 
-                    value={state.respondent}
-                    onChange={onRespondentInputValueChange}/>
-                <SmartField 
-                    type="number"
-                    displayText="duration (in blocks)"
-                    value={state.duration}
-                    onChange={onDurationInputValueChange}/>
-                <SmartField 
-                    type="number"
-                    displayText="value (in gwei)"
-                    value={state.value}
-                    onChange={onValueChange}/>
-                <input type="button" value="create game" onClick={() => createGame()} />
-            </form>
-            <NewGameInfo 
-                salt={state.salt}
-                saltVisible={state.saltVisible}
-                onVisibleChange={() => {
-                    setState((prevState) => {
-                        return {
-                            ...prevState,
-                            saltVisible: !prevState.saltVisible
-                        }
-                    });
-                }}
-                gameId={state.gameId}
-                gameCreated={state.gameCreated}/>
+        <div className="bottom-item create-game">
+            <div className="inside">
+                <p>
+                    {state.errorMessage}
+                </p>
+                <form>
+                    <ChoiceSelection onChoiceChange={onChoiceChange}/>
+                    <SmartField 
+                        type="text"
+                        displayText="respondent:" 
+                        value={state.respondent}
+                        onChange={onRespondentInputValueChange}/>
+                    <SmartField 
+                        type="number"
+                        displayText="duration (in blocks)"
+                        value={state.duration}
+                        onChange={onDurationInputValueChange}/>
+                    <SmartField 
+                        type="number"
+                        displayText="value (in gwei)"
+                        value={state.value}
+                        onChange={onValueChange}/>
+                    <input type="button" value="create game" onClick={() => createGame()} />
+                </form>
+                <NewGameInfo 
+                    salt={state.salt}
+                    saltVisible={state.saltVisible}
+                    onVisibleChange={() => {
+                        setState((prevState) => {
+                            return {
+                                ...prevState,
+                                saltVisible: !prevState.saltVisible
+                            }
+                        });
+                    }}
+                    gameId={state.gameId}
+                    gameCreated={state.gameCreated}/>
+            </div>
         </div>
     );
 }
