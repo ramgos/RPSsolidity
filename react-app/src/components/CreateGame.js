@@ -185,7 +185,7 @@ const CreateGame = () => {
     }
     
     return (
-        <div>
+        <div className="create-game">
             <p>
                 {state.errorMessage}
             </p>

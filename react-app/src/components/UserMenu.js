@@ -117,7 +117,7 @@ const UserMenu = () => {
     }
 
     return (
-        <div>
+        <div className="user-menu">
             <p>
                 {state.errorMessage}
             </p>

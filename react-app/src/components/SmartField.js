@@ -2,7 +2,7 @@ import React from 'react';
 
 const SmartField = ({displayText, value, onChange, type}) => {
     return (
-        <div>
+        <div className="smart-field">
             <label>{displayText}</label><br />
             <input 
                 type={type}

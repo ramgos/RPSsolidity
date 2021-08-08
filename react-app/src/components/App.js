@@ -6,7 +6,21 @@ import UserMenu from "./UserMenu";
 import rpsABI from '../rpsABI.json';
 import envData from '../env.json';
 
+import './style.css'
+
 const Web3 = require('web3');
+
+/*
+  # TODO LIST:
+  #
+  # 1.
+  #   Refactor view data component to display errors above UI and not inside
+  # 2.
+  #   Add titles and descriptions to components
+  # 3.
+  #   Add styling inside components (flexbox and whatev)
+*/
+
 
 //provider
 export const web3Context = React.createContext();
@@ -66,10 +80,32 @@ const w3 = new Web3(window.ethereum);
 function App() {
   return (
     <web3Context.Provider value={w3}> 
-      <div>
-        <CreateGame />
-        <GameInfo />
-        <UserMenu />
+      <div className="app">
+        <div className="top-container">
+          <div className="top">
+            <h1>Rock Paper Scissors</h1>
+            <div className="description">
+              <p>
+                Rock Paper Scissors on the Ethereum blockchain
+                using salted hashes. <br /> 
+                Made by <a href="https://www.reddit.com/user/195monke" target="_blank" rel="noreferrer">u/195monkey</a> on Reddit 
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="bottom-container">
+          <div className="bottom">
+            <div className="bottom item">
+              <CreateGame />
+            </div>
+            <div className="bottom item">
+              <GameInfo/>
+            </div>
+            <div className="bottom item">
+              <UserMenu/>
+            </div>
+          </div>
+        </div>
       </div>
     </web3Context.Provider>
   );

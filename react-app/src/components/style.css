@@ -1,0 +1,48 @@
+.app {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.top-container {
+    display: flex;
+    justify-content: center;
+}
+
+.top {
+    width: 50%;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.bottom-container {
+    display: flex;
+    justify-content: center;
+}
+
+.bottom {
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.description {
+    font-size: 150%;
+}
+
+.bottom.item {
+    position: relative;
+
+    padding-left: 1.5cm;
+    padding-right: 1.5cm;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    border: 2px solid #d3d3d3;
+
+    margin-left: 2px;
+    margin-right: 2px;
+}

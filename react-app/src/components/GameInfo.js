@@ -72,7 +72,7 @@ const GameInfo = () => {
     }
 
     return (
-        <div>
+        <div className="game-info">
             <p>
                 enter a gameId to view data about that game
             </p>
