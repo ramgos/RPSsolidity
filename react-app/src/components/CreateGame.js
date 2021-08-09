@@ -112,7 +112,6 @@ const CreateGame = () => {
             onErrorMessageChange("Value should be an integer");
         }
         else {
-            onErrorMessageChange("");
             return true;
         }
         return false;
@@ -136,6 +135,9 @@ const CreateGame = () => {
             if (state.respondent === userAccount || parseInt(state.respondent, 16) === 0) {
                 onErrorMessageChange("Challenging yourself or the burn address isn't allowed");
                 return;
+            }
+            else {
+                onErrorMessageChange("");
             }
 
             // generate salt
@@ -197,7 +199,7 @@ const CreateGame = () => {
                     <ChoiceSelection onChoiceChange={onChoiceChange}/>
                     <SmartField 
                         type="text"
-                        displayText="Respondent:" 
+                        displayText="Respondent" 
                         value={state.respondent}
                         onChange={onRespondentInputValueChange}
                         args={{placeholder: "enter respondent address"}}/>
