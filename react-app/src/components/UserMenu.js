@@ -10,12 +10,30 @@ import { parsedGameData } from './App';
 import { UserType } from './App';
 import Description from './Description';
 
+// get premissions of all types of users based on gameData and blockNumber
+export const getPremissions = (gameData, blockNumber) => {
+    return {
+        canAccept: !gameData._hasStarted && !gameData._isFinished,
+        canWithdrawAsRespondent: gameData._hasStarted && (blockNumber - gameData._blocknumber >= gameData._blockduration) && !gameData._isFinished,
+        canSettle: false,
+        canWithdrawAsChallenger: false,
+    }
+}
+
 const UserMenu = () => {
     const w3 = useContext(web3Context);
 
     const [state, setState] = useState(() => {
         return {
             gameId: "",
+            gameData: {},
+            blockNumber: -1, // determine only on reveal menu,
+
+            canAccept: false,
+            canWithdrawAsRespondent: false,
+            canSettle: false,
+            canWithdrawAsChallenger: false,
+
             userType: -1,  // in order to not show directly "you're not part of this game"
             errorMessage: ""
         }
@@ -26,6 +44,15 @@ const UserMenu = () => {
             return {
                 ...prevState,
                 gameId: newValue
+            }
+        })
+    }
+
+    const onGameDataChange = (newValue) => {
+        setState((prevState) => {
+            return {
+                ...prevState,
+                gameData: newValue
             }
         })
     }
@@ -49,18 +76,44 @@ const UserMenu = () => {
         })
     }
 
+    // doesn't actually update per block
+    const onBlockNumberChange = (newValue) => {
+        setState((prevState) => {
+            return {
+                ...prevState,
+                blockNumber: newValue
+            }
+        })
+    }
+
+    // update premission based on gameData
+    const updatePremissions = () => {
+        setState((prevState) => {
+            return {
+                ...prevState,
+                ...getPremissions(prevState.gameData, prevState.blockNumber)
+            }
+        })
+    }
+
     const appropriateMenu = () => {
         switch (state.userType) {
             case UserType.challenger:
                 return (
                     <div>
-                        <ChallengerMenu />
+                        <ChallengerMenu 
+                            gameId={state.gameId} 
+                            gameData={state.gameData}/>
                     </div>
                 );
             case UserType.respondent:
                 return (
                     <div>
-                        <RespondentMenu />
+                        <RespondentMenu 
+                            gameId={state.gameId} 
+                            gameData={state.gameData}
+                            canAccept={state.canAccept}
+                            canWithdraw={state.canWithdrawAsRespondent}/>
                     </div>
                 );
             case UserType.none:
@@ -83,10 +136,20 @@ const UserMenu = () => {
         let userAccount;
         
         try {
+            // request account
             const userAddresses = await w3.eth.requestAccounts();
             userAccount = userAddresses[0];
 
             const gameData = await parsedGameData(state.gameId);
+            onGameDataChange(gameData);
+            
+            const blockNumber = await w3.eth.getBlockNumber();
+            onBlockNumberChange(blockNumber);
+
+            // determine what each type of user can and can't do based on game data
+            updatePremissions();
+
+            // determine user type
             switch (userAccount) {
                 case gameData._challenger:
                     onUserTypeChange(UserType.challenger);

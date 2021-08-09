@@ -13,7 +13,7 @@ const NewGameInfo = ({salt, saltVisible, onVisibleChange, gameId, gameCreated}) 
                 </p>
                 <label>Salt: {salt}</label><br />
                 <label>GameId: {gameId}</label><br />
-                <input type="button" value="hide salt" onClick={onVisibleChange} />
+                <input type="button" value="Hide salt" onClick={onVisibleChange} />
             </div>
         );
     }
@@ -26,7 +26,7 @@ const NewGameInfo = ({salt, saltVisible, onVisibleChange, gameId, gameCreated}) 
                 </p>
                 <label>Salt: HIDDEN</label><br />
                 <label>GameId: {gameId}</label><br />
-                <input type="button" value="reveal salt" onClick={onVisibleChange} />
+                <input type="button" value="Reveal salt" onClick={onVisibleChange} />
             </div>
         );
     }

@@ -107,10 +107,12 @@ ul > li{
 }
 
 .rps-choice {
+    margin-top: 20px;
     margin-bottom: 20px;
 }
 
 /* smart field styling */
 .smart-field {
+    margin-top: 4px;
     margin-bottom: 4px;
 }

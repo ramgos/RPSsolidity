@@ -95,8 +95,7 @@ function App() {
           <div className="main-description">
             <p>
               Rock Paper Scissors on the Ethereum blockchain
-              using salted hashes. <br /> 
-              Made by <a href="https://www.reddit.com/user/195monke" target="_blank" rel="noreferrer">u/195monkey</a> on Reddit 
+              using salted hashes. <br />  
             </p>
           </div>
         </div>

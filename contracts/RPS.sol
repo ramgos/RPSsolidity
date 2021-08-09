@@ -79,6 +79,8 @@ contract RockPaperScissors {
         isValidChoice(_choice)
     { 
         require(msg.value >= games[_gameId].stake, "Must provide stake equal or higher than challenger");
+        require(games[_gameId].hasStarted == false, "You have already accepted the game");
+
         games[_gameId].respondentChoice = _choice;
         games[_gameId].hasStarted = true;
         games[_gameId].blocknumber = block.number;
