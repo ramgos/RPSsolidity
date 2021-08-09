@@ -5,6 +5,8 @@ import { generateSalt, saltedHash} from '../saltedRPSHash';
 import ChoiceSelection from './CreateGameComponents/ChoiceSelection';
 import SmartField from './SmartField';
 import NewGameInfo from './CreateGameComponents/NewGameInfo';
+import ErrorMessage from './ErrorMessage';
+import Description from './Description';
 
 import envData from '../env.json';
 import rpsABI from '../rpsABI.json';
@@ -17,7 +19,7 @@ const CreateGame = () => {
     const [state, setState] = useState(() => {
         return {
             choice: -1,
-            respondent: "enter respondent address",
+            respondent: "",
             duration: 5,
             salt: "",
             gameID: "",
@@ -92,22 +94,22 @@ const CreateGame = () => {
 
     const validateInput = () => {
         if (!Web3.utils.isAddress(state.respondent)) {
-            onErrorMessageChange("respondent isn't a valid address");
+            onErrorMessageChange("Respondent isn't a valid address");
         }
         else if (!(state.duration >= 5)) {
-            onErrorMessageChange("duration must be greater than or equal to 5 blocks (75 seconds)");
+            onErrorMessageChange("Duration must be greater than or equal to 5 blocks (75 seconds)");
         }
         else if (!(Number.parseFloat(state.duration) === Number.parseInt(state.duration))) {
-            onErrorMessageChange("duration must be an integer");
+            onErrorMessageChange("Duration must be an integer");
         }
         else if (state.choice === -1) {
-            onErrorMessageChange("please choose a move");
+            onErrorMessageChange("Please choose a move");
         }
         else if (state.value < 1) {
-            onErrorMessageChange("value should be at least 1 gwei");
+            onErrorMessageChange("Value should be at least 1 gwei");
         }
         else if (!(Number.parseFloat(state.value) === Number.parseInt(state.value))) {
-            onErrorMessageChange("value should be an integer");
+            onErrorMessageChange("Value should be an integer");
         }
         else {
             onErrorMessageChange("");
@@ -132,7 +134,7 @@ const CreateGame = () => {
             userAccount = userAddresses[0];
 
             if (state.respondent === userAccount || parseInt(state.respondent, 16) === 0) {
-                onErrorMessageChange("challenging yourself or the burn address isn't allowed");
+                onErrorMessageChange("Challenging yourself or the burn address isn't allowed");
                 return;
             }
 
@@ -167,17 +169,17 @@ const CreateGame = () => {
             console.log(error);
             switch (error.code) {
                 case 4001:
-                    onErrorMessageChange("please confirm metamask to use this dapp");
+                    onErrorMessageChange("Please confirm metamask to use this dapp");
                     break;
                 case -32603:
                     onErrorMessageChange(
-                        "an RPC error occured. did you try to challenge yourself or the burn address?"
+                        "An RPC error occured. did you try to challenge yourself or the burn address?"
                     )
                     break;
                 default:
                     onErrorMessageChange(
                         "Something went wrong, please try again later." + 
-                        "none of your funds have been lost, but you may have lost gas money"
+                        "None of your funds have been lost, but you may have lost gas money"
                     )
                     break
             }
@@ -187,27 +189,29 @@ const CreateGame = () => {
     return (
         <div className="bottom-item create-game">
             <div className="inside">
-                <p>
-                    {state.errorMessage}
-                </p>
+                <Description 
+                    title="Create Game"
+                    desc="Create Game Description"/>
+                <ErrorMessage message={state.errorMessage}/>
                 <form>
                     <ChoiceSelection onChoiceChange={onChoiceChange}/>
                     <SmartField 
                         type="text"
-                        displayText="respondent:" 
+                        displayText="Respondent:" 
                         value={state.respondent}
-                        onChange={onRespondentInputValueChange}/>
+                        onChange={onRespondentInputValueChange}
+                        args={{placeholder: "enter respondent address"}}/>
                     <SmartField 
                         type="number"
-                        displayText="duration (in blocks)"
+                        displayText="Duration (in blocks)"
                         value={state.duration}
                         onChange={onDurationInputValueChange}/>
                     <SmartField 
                         type="number"
-                        displayText="value (in gwei)"
+                        displayText="Bet (in gwei)"
                         value={state.value}
                         onChange={onValueChange}/>
-                    <input type="button" value="create game" onClick={() => createGame()} />
+                    <input type="button" value="Create Game" onClick={() => createGame()} />
                 </form>
                 <NewGameInfo 
                     salt={state.salt}

@@ -11,8 +11,8 @@ const NewGameInfo = ({salt, saltVisible, onVisibleChange, gameId, gameCreated}) 
                     Your salt should remain secret,
                     otherwise your opponent could rig the game
                 </p>
-                <label>salt: {salt}</label><br />
-                <label>gameId: {gameId}</label><br />
+                <label>Salt: {salt}</label><br />
+                <label>GameId: {gameId}</label><br />
                 <input type="button" value="hide salt" onClick={onVisibleChange} />
             </div>
         );
@@ -24,8 +24,8 @@ const NewGameInfo = ({salt, saltVisible, onVisibleChange, gameId, gameCreated}) 
                     Your salt should remain secret,
                     otherwise your opponent could rig the game
                 </p>
-                <label>salt: HIDDEN</label><br />
-                <label>gameId: {gameId}</label><br />
+                <label>Salt: HIDDEN</label><br />
+                <label>GameId: {gameId}</label><br />
                 <input type="button" value="reveal salt" onClick={onVisibleChange} />
             </div>
         );

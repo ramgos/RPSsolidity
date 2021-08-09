@@ -14,11 +14,18 @@ const Web3 = require('web3');
   # TODO LIST:
   #
   # 1.
-  #   Refactor view data component to display errors above UI and not inside
+  #   Refactor view data component to display errors above UI and not inside ✓    **DONE**
   # 2.
-  #   Add titles and descriptions to components
+  #   Add titles and descriptions to components ✓    **DONE**
   # 3.
   #   Add styling inside components (flexbox and whatev)
+  # 4.
+  #   Move user menu above create game and view game data
+  # 5. 
+  #   Create Respondent Menu
+  # 6.
+  #   Create Challenger Menu
+  #
 */
 
 
@@ -82,10 +89,10 @@ function App() {
     <web3Context.Provider value={w3}> 
       <div className="app">
         <div className="top">
-          <div className="title">
+          <div className="main-title">
             <h1>Rock Paper Scissors</h1>
           </div>
-          <div className="description">
+          <div className="main-description">
             <p>
               Rock Paper Scissors on the Ethereum blockchain
               using salted hashes. <br /> 

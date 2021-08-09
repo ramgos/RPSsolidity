@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+
 import SmartField from './SmartField';
+import ErrorMessage from './ErrorMessage';
+import Description from './Description';
 
 import { parsedGameData } from './App';
 
@@ -7,7 +10,8 @@ const GameInfo = () => {
     const [state, setState] = useState(()=>{
         return {
             gameId: "",
-            gameData: {}
+            gameData: {},
+            errorMessage: ""
         }
     })
 
@@ -22,17 +26,39 @@ const GameInfo = () => {
         })
     }
 
+    const onGameDataChange = (newValue) => {
+        setState((prevState) => {
+            return {
+                ...prevState,
+                gameData: newValue
+            }
+        })
+    }
+
+    const onErrorMessageChange = (newValue) => {
+        setState((prevState) => {
+            return {
+                ...prevState,
+                errorMessage: newValue
+            }
+        })
+    }
+
     // get parsed data and update state
 
     const parseGameData = async () => {
         try {
             const gameData = await parsedGameData(state.gameId)
-            setState((prevState) => {
-                return {
-                    ...prevState,
-                    gameData: gameData
-                }
-            })
+            if(gameData && gameData._isGame === true) {
+                onErrorMessageChange("");
+                onGameDataChange(gameData);
+            }
+            else if (gameData && gameData._isGame === false) {
+                onErrorMessageChange("Game doesn't exist")
+            }
+            else {
+                onErrorMessageChange("Invalid GameID")
+            }
         }
         catch (error) {
             console.log(error);
@@ -40,23 +66,6 @@ const GameInfo = () => {
     }
 
     const showGameData = () => {
-
-        // check that gameId is valid and that game exists
-
-        if (!state.gameData) {
-            return (
-                <p>
-                    Invalid gameId
-                </p>
-            )
-        }
-        if (state.gameData && state.gameData.hasOwnProperty("_isGame") &&state.gameData._isGame === false) {
-            return(
-                <p>
-                    This game doesn't exist
-                </p>
-            );
-        }
 
         // generate formatted list
 
@@ -74,16 +83,17 @@ const GameInfo = () => {
     return (
         <div className="bottom-item game-info">
             <div className="inside">
-                <p>
-                    enter a gameId to view data about that game
-                </p>
+                <Description 
+                    title="Game Info"
+                    desc="Game Info Description"/>
+                <ErrorMessage message={state.errorMessage}/>
                 <SmartField 
                     type="text"
-                    displayText="gameId"
+                    displayText="GameId"
                     value={state.gameId}
                     onChange={onGameIdChange}
                     />
-                <input type="button" value="view data" onClick={parseGameData} />
+                <input type="button" value="View Data" onClick={parseGameData} />
                 <ul>
                     {showGameData()}
                 </ul>

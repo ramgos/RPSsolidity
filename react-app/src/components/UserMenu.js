@@ -1,11 +1,14 @@
 import React, {useState, useContext} from 'react';
+
 import RespondentMenu from './UserMenuComponents/RespondentMenu';
 import ChallengerMenu from './UserMenuComponents/ChallengerMenu';
 import SmartField from './SmartField';
+import ErrorMessage from './ErrorMessage';
 
 import { web3Context } from './App';
 import { parsedGameData } from './App';
 import { UserType } from './App';
+import Description from './Description';
 
 const UserMenu = () => {
     const w3 = useContext(web3Context);
@@ -100,11 +103,11 @@ const UserMenu = () => {
             console.log(error);
             switch (error.code) {
                 case 4001:
-                    onErrorMessageChange("please confirm metamask to use this dapp");
+                    onErrorMessageChange("Please confirm metamask to use this dapp");
                     break;
                 case -32603:
                     onErrorMessageChange(
-                        "an RPC error occured"
+                        "An RPC error occured"
                     )
                     break;
                 default:
@@ -119,16 +122,17 @@ const UserMenu = () => {
     return (
         <div className="bottom-item user-menu">
             <div className="inside">
-                <p>
-                    {state.errorMessage}
-                </p>
+                <Description 
+                    title="User Menu"
+                    desc="User Menu Description"/>
+                <ErrorMessage message={state.errorMessage}/>
                 <div>
                     <SmartField 
                         type="text"
-                        displayText="gameId"
+                        displayText="GameId"
                         value={state.gameId}
                         onChange={onGameIdChange}/>
-                    <input type="button" value="reveal user menu" onClick={revealUserMenu} />
+                    <input type="button" value="Open User Menu" onClick={revealUserMenu} />
                 </div>
                 {appropriateMenu()}
             </div>

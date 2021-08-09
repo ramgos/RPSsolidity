@@ -3,18 +3,20 @@ import { Choice } from '../App';
 
 const ChoiceSelection = ({onChoiceChange}) => {
     return (
-        <div>
-            <label>choice:</label><br />
-            <div onChange={(event) => onChoiceChange(event.target.value)}>
-                rock: <input 
+        <div className="rps-choice">
+            <div className="rps-choice-title">
+                <label><h4>Choice:</h4></label>
+            </div>
+            <div onChange={(event) => onChoiceChange(event.target.value)} className="rps-choice-radio">
+                Rock: <input 
                     type="radio"
                     value={Choice.rock}
                     name="choice"/><br />
-                paper: <input 
+                Paper: <input 
                     type="radio"
                     value={Choice.paper}
                     name="choice"/><br />
-                scissors: <input 
+                Scissors: <input 
                     type="radio"
                     value={Choice.scissors}
                     name="choice"/><br />

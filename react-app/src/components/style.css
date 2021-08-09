@@ -27,7 +27,8 @@
 /* bottom items refers to main components*/
 .bottom-item {
     /* max width is third of the flex container */
-    max-width: 33%;
+    max-width: 20%;
+    min-width: 20%;
 
     margin-left: 1%;
     margin-right: 1%;
@@ -46,11 +47,70 @@
     padding-top: 0%;
 }
 
-.description {
+/* remove big margin from main title and main description + font sizing */ 
+
+.main-description {
     text-align: center;
     font-size: 150%;
 }
 
-.title {
+.main-description > p {
+    margin-top: 2%;
+    margin-bottom: 4%;
+}
+
+.main-title {
     text-align: center;
+}
+
+.main-title > h1 {
+    margin: 0%;
+}
+
+/* remove big margin from components titles and component description + font sizing */ 
+
+.description-body {
+    text-align: center;
+}
+
+.description-body > p {
+    margin: 2%;
+}
+
+.description-title {
+    text-align: center;
+}
+
+.description-title > h2 {
+    margin: 0%;
+}
+
+/* add margin to unordered lists */
+ul > li{
+    margin-top: 4px;
+}
+
+/* style error */
+.error-message {
+    color:red;
+    font-style: oblique;
+}
+
+/* rock paper scissors choice styling */
+.rps-choice-radio {
+    margin-left: 7%;
+}
+
+.rps-choice-title > label > h4 {
+    margin-top: 0%;
+    margin-bottom: 4px;
+}
+
+.rps-choice {
+    margin-bottom: 20px;
+}
+
+/* smart field styling */
+.smart-field {
+    margin-bottom: 4px;
 }
