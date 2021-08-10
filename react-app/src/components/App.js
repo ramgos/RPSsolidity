@@ -81,6 +81,26 @@ export const parsedGameData = async (gameId) => {
   }
 }
 
+// handle errors in async functions that require metamask
+export const handleError = (error, onErrorMessageChange) => {
+  console.log(error);
+  switch (error.code) {
+      case 4001:
+          onErrorMessageChange("Please confirm metamask to use this dapp");
+          break;
+      case -32603:
+          onErrorMessageChange(
+              "An RPC error occured"
+          )
+          break;
+      default:
+          onErrorMessageChange(
+              "Something went wrong, did you paste the code correctly?"
+          )
+          break
+  }
+}
+
 //provider
 const w3 = new Web3(window.ethereum);
 

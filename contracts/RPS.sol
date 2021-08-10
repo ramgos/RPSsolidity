@@ -64,8 +64,8 @@ contract RockPaperScissors {
         require(_respondent != address(0), "Respondent can't be burn address");
         require(_blockduration != 0, "Can't have game with 0 duration");
         
-        Game memory _newGame = Game(_slatedHash, msg.sender, _respondent, msg.value, 0, _blockduration, rock, false, false, true);  //default choice is rock
-        bytes32 _gameId = keccak256(abi.encode(_newGame.challenger, _newGame.respondent, _newGame.stake, _newGame.blocknumber, _newGame.blockduration));
+        Game memory _newGame = Game(_slatedHash, msg.sender, _respondent, msg.value, 0, _blockduration, rock, false, false, true);  // default choice is rock
+        bytes32 _gameId = keccak256(abi.encode(_newGame.challenger, _newGame.respondent, _newGame.stake, block.number, _newGame.blockduration));
         games[_gameId] = _newGame;
         
         emit GameCreated(_gameId, msg.sender, _respondent);

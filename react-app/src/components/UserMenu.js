@@ -5,7 +5,7 @@ import ChallengerMenu from './UserMenuComponents/ChallengerMenu';
 import SmartField from './SmartField';
 import ErrorMessage from './ErrorMessage';
 
-import { web3Context } from './App';
+import { handleError, web3Context } from './App';
 import { parsedGameData } from './App';
 import { UserType } from './App';
 import Description from './Description';
@@ -163,22 +163,7 @@ const UserMenu = () => {
             onErrorMessageChange("");
         }
         catch (error) {
-            console.log(error);
-            switch (error.code) {
-                case 4001:
-                    onErrorMessageChange("Please confirm metamask to use this dapp");
-                    break;
-                case -32603:
-                    onErrorMessageChange(
-                        "An RPC error occured"
-                    )
-                    break;
-                default:
-                    onErrorMessageChange(
-                        "Something went wrong, did you paste the code correctly?"
-                    )
-                    break
-            }
+            handleError(error, onErrorMessageChange)
         }
     }
 

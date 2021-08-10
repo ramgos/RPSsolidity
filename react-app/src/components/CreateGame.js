@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import { web3Context } from './App';
+import { handleError, web3Context } from './App';
 import { generateSalt, saltedHash} from '../saltedRPSHash';
 
 import ChoiceSelection from './CreateGameComponents/ChoiceSelection';
@@ -168,23 +168,7 @@ const CreateGame = () => {
             });
         }
         catch (error) {
-            console.log(error);
-            switch (error.code) {
-                case 4001:
-                    onErrorMessageChange("Please confirm metamask to use this dapp");
-                    break;
-                case -32603:
-                    onErrorMessageChange(
-                        "An RPC error occured. did you try to challenge yourself or the burn address?"
-                    )
-                    break;
-                default:
-                    onErrorMessageChange(
-                        "Something went wrong, please try again later." + 
-                        "None of your funds have been lost, but you may have lost gas money"
-                    )
-                    break
-            }
+            handleError(error, onErrorMessageChange)
         }
     }
     
