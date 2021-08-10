@@ -17,6 +17,7 @@ const RespondentMenu = ({gameId, gameData, canAccept, canWithdraw}) => {
         return {
             choice: -1,
             gameAccepted: false,
+            gameWithdrawn: false,
             errorMessage: ""
         }
     })
@@ -48,7 +49,16 @@ const RespondentMenu = ({gameId, gameData, canAccept, canWithdraw}) => {
         })
     }
 
-    const validateInput = async () => {
+    const onRespondentWithdrawal = () => {
+        setState((prevState) => {
+            return {
+                ...prevState,
+                gameWithdrawn: true
+            }
+        })  
+    }
+
+    const validateAcceptInput = async () => {
         // check if gameData has changed while being rendered
         try {
             const blockNumber = await w3.eth.getBlockNumber();
@@ -84,7 +94,7 @@ const RespondentMenu = ({gameId, gameData, canAccept, canWithdraw}) => {
                 return;
             }
             
-            const inputIsValid = await validateInput();
+            const inputIsValid = await validateAcceptInput();
             if (!inputIsValid) {
                 return;
             }
@@ -105,8 +115,23 @@ const RespondentMenu = ({gameId, gameData, canAccept, canWithdraw}) => {
         }
         catch (error) {
             console.log(error);
+            switch (error.code) {
+                case 4001:
+                    onErrorMessageChange("Please confirm metamask to use this dapp");
+                    break;
+                case -32603:
+                    onErrorMessageChange(
+                        "An RPC error occured. did you try to challenge yourself or the burn address?"
+                    )
+                    break;
+                default:
+                    onErrorMessageChange(
+                        "Something went wrong, please try again later." + 
+                        "None of your funds have been lost, but you may have lost gas money"
+                    )
+                    break
+            }
         }
-
     }
 
     const acceptOption = () => {
@@ -114,9 +139,6 @@ const RespondentMenu = ({gameId, gameData, canAccept, canWithdraw}) => {
             <div>
                 <ErrorMessage message={state.errorMessage}/>
                 <div className="accept user-option" key="accept">
-                    <p>
-                        This is the respondent menu
-                    </p>
                     <label>
                         This Game's bet is: {gameData._stake / Math.pow(10, 9)} Gwei <br />
                         ({gameData._stake / Math.pow(10, 18)} Ether)
@@ -128,14 +150,82 @@ const RespondentMenu = ({gameId, gameData, canAccept, canWithdraw}) => {
         );
     }
 
+    const validateWithdrawInput = async () => {
+        // check if gameData has changed while being rendered
+        try {
+            const blockNumber = await w3.eth.getBlockNumber();
+            const reassuredGameData = await parsedGameData(gameId);
+    
+            const reassuredPremissions = getPremissions(reassuredGameData, blockNumber);
+            if (reassuredPremissions.canWithdrawAsRespondent === false) {
+                onErrorMessageChange("Your opponent cancelled the game, or he still has time to settle the game, or you've withdrawn already");
+            }
+            else {
+                onErrorMessageChange("");
+                return true;
+            }
+            return false;
+
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    }
+
+    const withdrawGame = async () => {
+        let userAccount;
+        try {
+            const userAddresses = await w3.eth.requestAccounts();
+            userAccount = userAddresses[0];
+
+            if (userAccount !== gameData._respondent) {
+                onErrorMessageChange("Accounts where changed while the menu was open");
+                return;
+            }
+
+            const inputIsValid = await validateWithdrawInput();
+            if (!inputIsValid) {
+                return;
+            }
+
+            const rpsContract = new w3.eth.Contract(rpsABI, envData.contractAddress);
+            const tx_data = await rpsContract
+                .methods
+                .withdrawAsRespondent(gameId)
+                .send({
+                    from: userAccount
+                })
+        
+            console.log(tx_data);
+            onRespondentWithdrawal();
+        }
+        catch (error) {
+            console.log(error);
+            switch (error.code) {
+                case 4001:
+                    onErrorMessageChange("Please confirm metamask to use this dapp");
+                    break;
+                case -32603:
+                    onErrorMessageChange(
+                        "An RPC error occured. did you try to challenge yourself or the burn address?"
+                    )
+                    break;
+                default:
+                    onErrorMessageChange(
+                        "Something went wrong, please try again later." + 
+                        "None of your funds have been lost, but you may have lost gas money"
+                    )
+                    break
+            }
+        }
+    }
+
     const withdrawOption = () => {
         return (
             <div>
                 <ErrorMessage message={state.errorMessage}/>
                 <div className="withdraw user-option" key="withdraw">
-                    <p>
-                        This is withdraw option
-                    </p>
+                    <input type="button" value="Withdraw Game" onClick={withdrawGame} />
                 </div>
             </div>
         );
@@ -175,6 +265,9 @@ const RespondentMenu = ({gameId, gameData, canAccept, canWithdraw}) => {
 
     return (
         <div className="respondent-menu">
+            <p>
+                You're the respondent in this game
+            </p>
             {render()}
         </div>
     );
