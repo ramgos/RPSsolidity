@@ -181,11 +181,13 @@ const UserMenu = () => {
     }
 
     return (
-        <div className="bottom-item user-menu">
-            <div className="inside">
-                <Description 
+        <div className="middle-item user-menu">
+            <div className="user-menu-description">
+                <Description
                     title="User Menu"
                     desc="User Menu Description"/>
+            </div>
+            <div className="middle-options">
                 <ErrorMessage message={state.errorMessage}/>
                 <div>
                     <SmartField 

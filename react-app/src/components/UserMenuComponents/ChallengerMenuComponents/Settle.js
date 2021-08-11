@@ -146,8 +146,8 @@ const Settle = ({gameId, gameData}) => {
             <ErrorMessage message={state.errorMessage} />
             <div>
                 <p>
-                    Your opponent accepted the game. You have limited time
-                    to provide the salt, or your opponent will be able to withdraw and win
+                    Your opponent accepted the game. You have limited time to provide the salt, <br />
+                    or your opponent will be able to withdraw and win
                 </p>
                 <SmartField 
                     type="text"

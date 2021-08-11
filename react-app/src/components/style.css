@@ -13,6 +13,15 @@
     width: 75%
 }
 
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    
+    margin: auto;
+    width: 100%;
+}
+
 .bottom {
     /* display main components in a row */
     display: flex;
@@ -24,11 +33,22 @@
     width: 75%
 }
 
+.middle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    /* take 75% width of page */
+    margin: auto;
+    margin-bottom: 20px;
+    width: 75%
+}
+
 /* bottom items refers to main components*/
 .bottom-item {
     /* max width is third of the flex container */
-    max-width: 20%;
-    min-width: 20%;
+    max-width: 40%;
+    min-width: 40%;
 
     margin-left: 1%;
     margin-right: 1%;
@@ -40,6 +60,29 @@
     padding-top: 10px;
     padding-bottom: 10px;
     border: 2px #e3e3e3 solid;
+}
+
+.middle-item {
+    max-width: 88.75%; /* wtf */
+    min-width: 88.75%;
+    overflow-wrap: anywhere;
+
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 2px #e3e3e3 solid;
+
+    flex:1
+}
+
+.middle-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+
+    gap: 5%;
 }
 
 /* align main content to top */
@@ -98,7 +141,7 @@ ul > li{
 
 /* rock paper scissors choice styling */
 .rps-choice-radio {
-    margin-left: 7%;
+    margin-left: 20px;
 }
 
 .rps-choice-title > label > h4 {

@@ -18,9 +18,9 @@ const Web3 = require('web3');
   # 2.
   #   Add titles and descriptions to components ✓    **DONE**
   # 3.
-  #   Add styling inside components (flexbox and whatev)
+  #   Add styling inside components (flexbox and whatev) ✓    **DONE**
   # 4.
-  #   Move user menu above create game and view game data
+  #   Move user menu above create game and view game data ✓    **DONE**
   # 5. 
   #   Create Respondent Menu ✓    **DONE**
   # 6.
@@ -121,10 +121,14 @@ function App() {
             </p>
           </div>
         </div>
-        <div className="bottom">
-          <CreateGame />
-          <GameInfo/>
-          <UserMenu/>
+        <div className="main">
+          <div className="middle">
+            <UserMenu/>
+          </div>
+          <div className="bottom">
+            <CreateGame />
+            <GameInfo />
+          </div>
         </div>
       </div>
     </web3Context.Provider>
