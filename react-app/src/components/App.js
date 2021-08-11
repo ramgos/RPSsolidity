@@ -22,9 +22,9 @@ const Web3 = require('web3');
   # 4.
   #   Move user menu above create game and view game data
   # 5. 
-  #   Create Respondent Menu
+  #   Create Respondent Menu ✓    **DONE**
   # 6.
-  #   Create Challenger Menu
+  #   Create Challenger Menu ✓    **DONE**
   #
 */
 
@@ -38,6 +38,8 @@ export const Choice = {
   "paper": 1,
   "scissors": 2
 }
+
+export const ReverseChoice = ["rock", "paper", "scissors"];
 
 //enum
 export const UserType = {
@@ -95,7 +97,7 @@ export const handleError = (error, onErrorMessageChange) => {
           break;
       default:
           onErrorMessageChange(
-              "Something went wrong, did you paste the code correctly?"
+              "Something went wrong, please try again later"
           )
           break
   }

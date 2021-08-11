@@ -23,10 +23,10 @@ const RespondentMenu = ({gameId, gameData, canAccept, canWithdraw}) => {
     const render = () => {
         let options = [];
         if (canAccept) {
-            options.push(<Accept gameId={gameId} gameData={gameData}/>);
+            options.push(<Accept gameId={gameId} gameData={gameData} key="accept"/>);
         }
         if (canWithdraw) {
-            options.push(<WithdrawAsRespondent gameId={gameId} gameData={gameData}/>);
+            options.push(<WithdrawAsRespondent gameId={gameId} gameData={gameData} key="withdraw"/>);
         }
         if (!Array.isArray(options) || !options.length) {
             options.push(NoOption())

@@ -92,9 +92,9 @@ const WithdrawAsRespondent = ({gameId, gameData}) => {
     }
 
     return (
-        <div>
+        <div className="withdraw user-option">
             <ErrorMessage message={state.errorMessage}/>
-            <div className="withdraw user-option" key="withdraw">
+            <div>
                 <p>
                     Your opponent's time is up. You may claim both of your funds <br/>
                     since he didn't settle the game in the agreed time frame

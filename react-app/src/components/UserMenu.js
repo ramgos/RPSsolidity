@@ -15,8 +15,8 @@ export const getPremissions = (gameData, blockNumber) => {
     return {
         canAccept: !gameData._hasStarted && !gameData._isFinished,
         canWithdrawAsRespondent: gameData._hasStarted && (blockNumber - gameData._blocknumber >= gameData._blockduration) && !gameData._isFinished,
-        canSettle: false,
-        canWithdrawAsChallenger: false,
+        canSettle: gameData._hasStarted && !gameData._isFinished,
+        canWithdrawAsChallenger: !gameData._hasStarted && !gameData._isFinished,
     }
 }
 
@@ -103,7 +103,9 @@ const UserMenu = () => {
                     <div>
                         <ChallengerMenu 
                             gameId={state.gameId} 
-                            gameData={state.gameData}/>
+                            gameData={state.gameData}
+                            canSettle={state.canSettle}
+                            canWithdraw={state.canWithdrawAsChallenger}/>
                     </div>
                 );
             case UserType.respondent:
@@ -141,7 +143,18 @@ const UserMenu = () => {
             userAccount = userAddresses[0];
 
             const gameData = await parsedGameData(state.gameId);
-            onGameDataChange(gameData);
+            if(gameData && gameData._isGame === true) {
+                onErrorMessageChange("");
+                onGameDataChange(gameData);
+            }
+            else if (gameData && gameData._isGame === false) {
+                onErrorMessageChange("Game doesn't exist")
+                return
+            }
+            else {
+                onErrorMessageChange("Invalid GameID")
+                return
+            }
             
             const blockNumber = await w3.eth.getBlockNumber();
             onBlockNumberChange(blockNumber);
