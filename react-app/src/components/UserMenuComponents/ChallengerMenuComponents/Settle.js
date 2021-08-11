@@ -61,10 +61,10 @@ const Settle = ({gameId, gameData}) => {
     
             const reassuredPremissions = getPremissions(reassuredGameData, blockNumber);
             if (reassuredPremissions.canSettle === false) {
-                onErrorMessageChange("Your opponent withdrawn the game, or you've settled already");
+                onErrorMessageChange("Your Opponent Withdrawn The Game, Or You've Settled Already");
             }
             else if (!state.salt) {
-                onErrorMessageChange("You must provide salt to settle the game");
+                onErrorMessageChange("You Must Provide Salt To Settle The Game");
             }
             else {
                 return true;
@@ -84,7 +84,7 @@ const Settle = ({gameId, gameData}) => {
             userAccount = userAddresses[0];
 
             if (userAccount !== gameData._challenger) {
-                onErrorMessageChange("Accounts where changed while the menu was open");
+                onErrorMessageChange("Accounts Were Changed While The Menu Was Open");
                 return;
             }
 
@@ -104,7 +104,7 @@ const Settle = ({gameId, gameData}) => {
             console.log(decodeHash);
 
             if (decodeHash[1] === false) {
-                onErrorMessageChange("Salt isn't valid");
+                onErrorMessageChange("Salt Isn't Valid");
             }
             else {
                 onErrorMessageChange("");
@@ -132,10 +132,10 @@ const Settle = ({gameId, gameData}) => {
         return (
             <div>
                 <p>
-                    Game finished! <br />
+                    Game Finished! <br />
                     {state.gameResult}, <br />
-                    Your choice: {readableChallengerChoice} <br />
-                    Opponent's choice: {readableOpponentChoice}
+                    Your Choice: {readableChallengerChoice} <br />
+                    Opponent's Choice: {readableOpponentChoice}
                 </p>
             </div>
         );
@@ -146,15 +146,15 @@ const Settle = ({gameId, gameData}) => {
             <ErrorMessage message={state.errorMessage} />
             <div>
                 <p>
-                    Your opponent accepted the game. You have limited time to provide the salt, <br />
-                    or your opponent will be able to withdraw and win
+                    Your Opponent Accepted The Game. You Have Limited Time To Provide The Salt, <br />
+                    Or Your Opponent Will Be Able To Withdraw And Win
                 </p>
                 <SmartField 
                     type="text"
                     displayText="Salt"
                     value={state.salt}
                     onChange={onSaltChange}/>
-                <input type="button" value="Settle Game" onClick={settleGame} />
+                <input type="button" value="Settle Game" className="style-button" onClick={settleGame} />
                 <div>
                     {state.gameSettled ? renderConclusion() : <div />}
                 </div>

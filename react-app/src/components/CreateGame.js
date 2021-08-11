@@ -94,22 +94,22 @@ const CreateGame = () => {
 
     const validateInput = () => {
         if (!Web3.utils.isAddress(state.respondent)) {
-            onErrorMessageChange("Respondent isn't a valid address");
+            onErrorMessageChange("Respondent Isn't A Valid Address");
         }
         else if (!(state.duration >= 5)) {
-            onErrorMessageChange("Duration must be greater than or equal to 5 blocks (75 seconds)");
+            onErrorMessageChange("Duration Must Be Greater Than Or Equal To 5 Blocks (75 Seconds)");
         }
         else if (!(Number.parseFloat(state.duration) === Number.parseInt(state.duration))) {
-            onErrorMessageChange("Duration must be an integer");
+            onErrorMessageChange("Duration Must Be An Integer");
         }
         else if (state.choice === -1) {
-            onErrorMessageChange("Please choose a move");
+            onErrorMessageChange("Please Choose A Move");
         }
         else if (state.value < 1) {
-            onErrorMessageChange("Value should be at least 1 gwei");
+            onErrorMessageChange("Value Should Be At Least 1 Gwei");
         }
         else if (!(Number.parseFloat(state.value) === Number.parseInt(state.value))) {
-            onErrorMessageChange("Value should be an integer");
+            onErrorMessageChange("Value Should Be An Integer");
         }
         else {
             return true;
@@ -133,7 +133,7 @@ const CreateGame = () => {
             userAccount = userAddresses[0];
 
             if (state.respondent === userAccount || parseInt(state.respondent, 16) === 0) {
-                onErrorMessageChange("Challenging yourself or the burn address isn't allowed");
+                onErrorMessageChange("Challenging Yourself Or The Burn Address Isn't Allowed");
                 return;
             }
             else {
@@ -177,7 +177,7 @@ const CreateGame = () => {
             <div className="inside">
                 <Description 
                     title="Create Game"
-                    desc="Create Game Description"/>
+                    desc="Start a Rock Paper Scissors Match (REMEMBER TO SAVE SALT)"/>
                 <ErrorMessage message={state.errorMessage}/>
                 <form>
                     <ChoiceSelection onChoiceChange={onChoiceChange}/>
@@ -186,18 +186,18 @@ const CreateGame = () => {
                         displayText="Respondent" 
                         value={state.respondent}
                         onChange={onRespondentInputValueChange}
-                        args={{placeholder: "enter respondent address"}}/>
+                        args={{placeholder: "Respondent Address"}}/>
                     <SmartField 
                         type="number"
-                        displayText="Duration (in blocks)"
+                        displayText="Duration (In Blocks)"
                         value={state.duration}
                         onChange={onDurationInputValueChange}/>
                     <SmartField 
                         type="number"
-                        displayText="Bet (in gwei)"
+                        displayText="Bet (In Gwei)"
                         value={state.value}
                         onChange={onValueChange}/>
-                    <input type="button" value="Create Game" onClick={() => createGame()} />
+                    <input type="button" value="Create Game" className="style-button" onClick={() => createGame()} />
                 </form>
                 <NewGameInfo 
                     salt={state.salt}

@@ -56,10 +56,10 @@ const Accept = ({gameId, gameData}) => {
     
             const reassuredPremissions = getPremissions(reassuredGameData, blockNumber);
             if (reassuredPremissions.canAccept === false) {
-                onErrorMessageChange("Your opponent cancelled the game, or you've already accepted the game");
+                onErrorMessageChange("Your Opponent Cancelled The Game, Or You've Already Accepted The Game");
             } 
             else if (state.choice === -1) {
-                onErrorMessageChange("Please choose a move");
+                onErrorMessageChange("Please Choose A Move");
             }
             else {
                 onErrorMessageChange("");
@@ -80,7 +80,7 @@ const Accept = ({gameId, gameData}) => {
             userAccount = userAddresses[0];
 
             if (userAccount !== gameData._respondent) {
-                onErrorMessageChange("Accounts were changed while the menu was open");
+                onErrorMessageChange("Accounts Were Changed While The Menu Was Open");
                 return;
             }
             
@@ -114,12 +114,12 @@ const Accept = ({gameId, gameData}) => {
             <ErrorMessage message={state.errorMessage}/>
             <div>
                 <label>
-                    This Game's bet is: {gameData._stake / Math.pow(10, 9)} Gwei <br />
+                    This Game's Bet Is: {gameData._stake / Math.pow(10, 9)} Gwei <br />
                     ({gameData._stake / Math.pow(10, 18)} Ether) <br/>
-                    Game duration: {gameData._blockduration} blocks
+                    Game Duration: {gameData._blockduration} Blocks
                 </label>
                 <ChoiceSelection onChoiceChange={onChoiceChange}/>
-                <input type="button" value="Accept Game" onClick={acceptGame} />
+                <input type="button" value="Accept Game" className="style-button" onClick={acceptGame} />
             </div>
         </div>
     );

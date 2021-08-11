@@ -7,6 +7,7 @@ import rpsABI from '../rpsABI.json';
 import envData from '../env.json';
 
 import './style.css'
+import tutsvg from '../tutsvg.svg';
 
 const Web3 = require('web3');
 
@@ -39,7 +40,7 @@ export const Choice = {
   "scissors": 2
 }
 
-export const ReverseChoice = ["rock", "paper", "scissors"];
+export const ReverseChoice = ["Rock", "Paper", "Scissors"];
 
 //enum
 export const UserType = {
@@ -88,16 +89,16 @@ export const handleError = (error, onErrorMessageChange) => {
   console.log(error);
   switch (error.code) {
       case 4001:
-          onErrorMessageChange("Please confirm metamask to use this dapp");
+          onErrorMessageChange("Please Confirm Metamask To Use This Dapp");
           break;
       case -32603:
           onErrorMessageChange(
-              "An RPC error occured"
+              "An RPC Error Occured"
           )
           break;
       default:
           onErrorMessageChange(
-              "Something went wrong, please try again later"
+              "Something Went Wrong, Please Try Again Later"
           )
           break
   }
@@ -116,9 +117,13 @@ function App() {
           </div>
           <div className="main-description">
             <p>
-              Rock Paper Scissors on the Ethereum blockchain
-              using salted hashes. <br />  
+              Rock Paper Scissors On The Ethereum Blockchain
+              Using Salted Hashes <br /> 
+              Contract Address: {envData.contractAddress}
             </p>
+          </div>
+          <div className="tutorial">
+            <img src={tutsvg} alt="tutorial"/>
           </div>
         </div>
         <div className="main">

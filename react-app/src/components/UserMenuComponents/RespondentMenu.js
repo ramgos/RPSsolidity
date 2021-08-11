@@ -37,7 +37,7 @@ const RespondentMenu = ({gameId, gameData, canAccept, canWithdraw}) => {
     return (
         <div className="respondent-menu">
             <p>
-                You're the respondent in this game
+                You're The Respondent In This Game
             </p>
             {render()}
         </div>

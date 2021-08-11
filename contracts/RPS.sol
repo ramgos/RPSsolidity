@@ -98,7 +98,7 @@ contract RockPaperScissors {
         uint8 _respondentChoice = games[_gameId].respondentChoice;
         uint8 _challangerChoice;
         bool _hasHashDecoded;
-        string memory _result = "Challenger won";
+        string memory _result = "Challenger Won";
         (_challangerChoice, _hasHashDecoded) = decodeHash(games[_gameId].saltedHash, _salt);
         
         require(_hasHashDecoded == true, "Something went wrong decoding your salted hash, check your input");
@@ -119,7 +119,7 @@ contract RockPaperScissors {
         }
         else {
             payable(games[_gameId].respondent).transfer(games[_gameId].stake * 2);
-            _result = "respondent won";
+            _result = "Respondent Won";
         }
         
         games[_gameId].isFinished = true;

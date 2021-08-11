@@ -45,7 +45,7 @@ const WithdrawAsChallenger = ({gameId, gameData}) => {
     
             const reassuredPremissions = getPremissions(reassuredGameData, blockNumber);
             if (reassuredPremissions.canWithdrawAsChallenger === false) {
-                onErrorMessageChange("Your opponent accepted the game, or you've withdrawn already");
+                onErrorMessageChange("Your Opponent Accepted The Game, Or You've Withdrawn Already");
             }
             else {
                 onErrorMessageChange("");
@@ -66,7 +66,7 @@ const WithdrawAsChallenger = ({gameId, gameData}) => {
             userAccount = userAddresses[0];
 
             if (userAccount !== gameData._challenger) {
-                onErrorMessageChange("Accounts where changed while the menu was open");
+                onErrorMessageChange("Accounts Where Changed While The Menu Was Open");
                 return;
             }
 
@@ -97,10 +97,10 @@ const WithdrawAsChallenger = ({gameId, gameData}) => {
             <ErrorMessage message={state.errorMessage} />
             <div>
                 <p>
-                    Your opponent hasn't accepted the game yet, <br />
-                    you may cancel and withdraw
+                    Your Opponent Hasn't Accepted The Game Yet, <br />
+                    You May Cancel And Withdraw
                 </p>
-                <input type="button" value="Withdraw Game" onClick={withdrawGame} />
+                <input type="button" value="Withdraw Game" className="style-button" onClick={withdrawGame} />
             </div>
         </div>
     );

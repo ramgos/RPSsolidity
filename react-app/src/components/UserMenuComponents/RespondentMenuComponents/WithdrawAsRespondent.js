@@ -45,7 +45,7 @@ const WithdrawAsRespondent = ({gameId, gameData}) => {
     
             const reassuredPremissions = getPremissions(reassuredGameData, blockNumber);
             if (reassuredPremissions.canWithdrawAsRespondent === false) {
-                onErrorMessageChange("Your opponent cancelled the game, or he still has time to settle the game, or you've withdrawn already");
+                onErrorMessageChange("Your Opponent Cancelled The Game, Or He Still Has Time To Settle The Game, Or You've Withdrawn Already");
             }
             else {
                 onErrorMessageChange("");
@@ -66,7 +66,7 @@ const WithdrawAsRespondent = ({gameId, gameData}) => {
             userAccount = userAddresses[0];
 
             if (userAccount !== gameData._respondent) {
-                onErrorMessageChange("Accounts where changed while the menu was open");
+                onErrorMessageChange("Accounts Were Changed While The Menu Was Open");
                 return;
             }
 
@@ -96,10 +96,10 @@ const WithdrawAsRespondent = ({gameId, gameData}) => {
             <ErrorMessage message={state.errorMessage}/>
             <div>
                 <p>
-                    Your opponent's time is up. You may claim both of your funds <br/>
-                    since he didn't settle the game in the agreed time frame
+                    Your Opponent's Time Is Up. You May Claim Both Of Your Funds <br/>
+                    Since He Didn't Settle The Game In The Agreed Time Frame
                 </p>
-                <input type="button" value="Withdraw Game" onClick={withdrawGame} />
+                <input type="button" value="Withdraw Game" className="style-button" onClick={withdrawGame} />
             </div>
         </div>
     );

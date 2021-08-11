@@ -8,8 +8,8 @@ const ChallengerMenu = ({gameId, gameData, canSettle, canWithdraw}) => {
             <div className="no-option user-option" key="empty-option">
                 <div>
                     <p>
-                        You cannot settle the game, nor withdraw<br/>
-                        (The game has been settled, cancelled or you didn't settle in time and your opponent withdrawn)
+                        You Cannot Settle The Game, Nor Withdraw<br/>
+                        (The Game Has Been Settled, Cancelled Or You Didn't Settle In Time And Your Opponent Withdrawn)
                     </p>
                 </div>
             </div>
@@ -33,7 +33,7 @@ const ChallengerMenu = ({gameId, gameData, canSettle, canWithdraw}) => {
     return (
         <div className="respondent-menu">
             <p>
-                You're the challenger in this game
+                You're The Challenger In This Game
             </p>
             {render()}
         </div>

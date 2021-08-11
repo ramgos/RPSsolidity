@@ -122,7 +122,7 @@ const UserMenu = () => {
                 return (
                     <div>
                         <p>
-                            You're not part of this game
+                            You're Not Part Of This Game
                         </p>
                     </div>
                 );
@@ -148,7 +148,7 @@ const UserMenu = () => {
                 onGameDataChange(gameData);
             }
             else if (gameData && gameData._isGame === false) {
-                onErrorMessageChange("Game doesn't exist")
+                onErrorMessageChange("Game Doesn't Exist")
                 return
             }
             else {
@@ -185,7 +185,7 @@ const UserMenu = () => {
             <div className="user-menu-description">
                 <Description
                     title="User Menu"
-                    desc="User Menu Description"/>
+                    desc="Enter A GameID To View Your Available Interactions With That Game. Use This Menu To Withdraw, Accept, And Settle Games"/>
             </div>
             <div className="middle-options">
                 <ErrorMessage message={state.errorMessage}/>
@@ -195,7 +195,7 @@ const UserMenu = () => {
                         displayText="GameId"
                         value={state.gameId}
                         onChange={onGameIdChange}/>
-                    <input type="button" value="Open User Menu" onClick={revealUserMenu} />
+                    <input type="button" value="Open User Menu" className="style-button" onClick={revealUserMenu} />
                 </div>
                 {appropriateMenu()}
             </div>

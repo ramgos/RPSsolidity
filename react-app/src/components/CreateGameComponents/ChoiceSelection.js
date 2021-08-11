@@ -8,15 +8,15 @@ const ChoiceSelection = ({onChoiceChange}) => {
                 <label><h4>Choice</h4></label>
             </div>
             <div onChange={(event) => onChoiceChange(event.target.value)} className="rps-choice-radio">
-                Rock: <input 
+                Rock <input 
                     type="radio"
                     value={Choice.rock}
                     name="choice"/><br />
-                Paper: <input 
+                Paper <input 
                     type="radio"
                     value={Choice.paper}
                     name="choice"/><br />
-                Scissors: <input 
+                Scissors <input 
                     type="radio"
                     value={Choice.scissors}
                     name="choice"/><br />

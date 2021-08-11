@@ -54,7 +54,7 @@ const GameInfo = () => {
                 onGameDataChange(gameData);
             }
             else if (gameData && gameData._isGame === false) {
-                onErrorMessageChange("Game doesn't exist")
+                onErrorMessageChange("Game Doesn't Exist")
             }
             else {
                 onErrorMessageChange("Invalid GameID")
@@ -85,7 +85,7 @@ const GameInfo = () => {
             <div className="inside">
                 <Description 
                     title="Game Info"
-                    desc="Game Info Description"/>
+                    desc="View Information Of A Game (0=Rock, 1=Paper, 2=Scissors)"/>
                 <ErrorMessage message={state.errorMessage}/>
                 <SmartField 
                     type="text"
@@ -93,7 +93,7 @@ const GameInfo = () => {
                     value={state.gameId}
                     onChange={onGameIdChange}
                     />
-                <input type="button" value="View Data" onClick={parseGameData} />
+                <input type="button" value="View Data" className="style-button" onClick={parseGameData} />
                 <ul>
                     {showGameData()}
                 </ul>
