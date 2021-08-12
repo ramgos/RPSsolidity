@@ -8,8 +8,51 @@
     <div id="root"></div>
   </body>
   <footer style="text-align: center; margin-top: 20px; font-size: small;">
-    Repository on Github: <a href="https://github.com/ramgos/RPSsolidity" target="_blank" rel="noreferrer">
-    ramgos/RPSsolidity</a><br />
-    Made by <a href="https://www.reddit.com/user/195monke" target="_blank" rel="noreferrer">u/195monkey</a> on Reddit
+    <div class="info">
+      Repository on Github: <a href="https://github.com/ramgos/RPSsolidity" target="_blank" rel="noreferrer">
+      ramgos/RPSsolidity</a><br />
+      Made by <a href="https://www.reddit.com/user/195monke" target="_blank" rel="noreferrer">u/195monkey</a> on Reddit
+    </div>
+    <div class="donate">
+      <p style="text-align: center; margin-top: 20px; font-size: small;">
+        Donate: <br />
+        Bitcoin: bc1qn4ut8qxq6m0mpkv3d5tznpspx78x5ksnthz8hk <br />
+        Ethereum: 0x654eA3660D53Be71D67E8Ffc1f4251F4359dDfE7 <br />
+        Monero: 4A98h8EyJcrKsF6MJCkNKs9D8f3MAqkXg1oVgW9FciMQVW3R8ev1qZV91BPYogfjXm2gKyhM62Gj5Jwh12GiPkESPAAS1nq <br />
+      </p>
+      <div class="qrcodes">
+        <div class="qrcode">
+          <label> Bitcoin </label>
+          <img src="btc_barcode.png" alt="btc address">
+        </div>
+        <div class="qrcode">
+          <label> Ethereum </label>
+          <img src="eth_barcode.png" alt="eth address">
+        </div>
+        <div class="qrcode">
+          <label> Monero </label>
+          <img src="xmr_barcode.png" alt="xmr address">
+        </div>
+      </div>
+      <style>
+        .qrcodes {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-around;
+          
+          width: 25%;
+          margin: auto
+        }
+        .qrcode {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+        }
+
+        .qrcode > label {
+          font-size: 125%;
+        }
+      </style>
+    </div>
   </footer>
 </html>
