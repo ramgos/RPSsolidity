@@ -11,25 +11,6 @@ import tutsvg from '../tutsvg.svg';
 
 const Web3 = require('web3');
 
-/*
-  # TODO LIST:
-  #
-  # 1.
-  #   Refactor view data component to display errors above UI and not inside ✓    **DONE**
-  # 2.
-  #   Add titles and descriptions to components ✓    **DONE**
-  # 3.
-  #   Add styling inside components (flexbox and whatev) ✓    **DONE**
-  # 4.
-  #   Move user menu above create game and view game data ✓    **DONE**
-  # 5. 
-  #   Create Respondent Menu ✓    **DONE**
-  # 6.
-  #   Create Challenger Menu ✓    **DONE**
-  #
-*/
-
-
 //provider
 export const web3Context = React.createContext();
 
@@ -117,7 +98,7 @@ function App() {
           </div>
           <div className="main-description">
             <p>
-              Rock Paper Scissors On The Ethereum Blockchain
+              Rock Paper Scissors On The Rinkeby Network
               Using Salted Hashes <br /> 
               Contract Address: {envData.contractAddress}
             </p>
